@@ -9,8 +9,20 @@ const Gameboard = (() => {
         document.querySelector("#gameboard").innerHTML = boardHTML;
     }
 
+    const update = (index, mark) => {
+        if (gameboard[index] === ""){
+            gameboard[index] = mark;
+            return true;
+        }
+        return false;
+    }
+
+    const getGameboard = () => gameboard;
+
     return {
         render,
+        update,
+        getGameboard
     }
 })();
 
@@ -34,19 +46,57 @@ const Game = (() => {
         currentPlayerIndex = 0;
         gameOver = false;
         Gameboard.render();
+        addEventListenerToSquares();
+    }
+
+    const addEventListenerToSquares = () => {
         const squares = document.querySelectorAll(".square");
         squares.forEach((square) => {
             square.addEventListener("click", handleClick);
         });
     }
+
     const handleClick = (event) => {
+        if (gameOver) return;
+
         let index = parseInt(event.target.id.split("-")[1]);
-        alert(index);
+        let currentPlayer = players[currentPlayerIndex];
+        
+        if (Gameboard.update(index, currentPlayer.mark)) {
+            Gameboard.render();
+            addEventListenerToSquares();
+
+            if(checkForWin() || checkForTie()) {
+                gameOver = true;
+                alert(checkForWin() ? `${currentPlayer.name} Wins!` : "It's a tie!");
+                return;
+            }
+
+            currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0;
+        }
+    }
+
+    const checkForWin = () => {
+        const winningConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        const gameboard = Gameboard.getGameboard();
+        return winningConditions.some(condition => {
+            const [a, b, c] = condition;
+            return gameboard[a] && gameboard [a] === gameboard[b] && gameboard[a] === gameboard[c];
+        });
+    }
+
+    const checkForTie = () => {
+        const gameboard= Gameboard.getGameboard();
+        return gameboard.every(square => square !== "");
     }
 
     return {
         start,
-        handleClick
     }
 })();
 

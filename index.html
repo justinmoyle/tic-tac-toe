@@ -7,16 +7,22 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Tic Tac Toe</h1>
-    <div id="gameboard"></div>
-    <div id="controls">
-        <input type="text" id="player1" placeholder="Player 1 Name">
-        <input type="text" id="player2" placeholder="Player 2 Name">
-        <button id="start-button">Start Game</button>
-        <button id="restart-button">Restart Game</button>
+    <div class="gamesize">
+        <h1>Tic Tac Toe</h1>
+        <div class="board">
+            <div id="gameboard"></div>
+        </div>
+        <div class="board">
+            <div id="controls">
+                <input type="text" id="player1" placeholder="Player 1 Name" class="btn">
+                <input type="text" id="player2" placeholder="Player 2 Name" class="btn">
+                <button id="start-button" class="btn">Start Game</button>
+                <button id="restart-button" class="btn">Restart Game</button>
+            </div>
+        </div>
+        <div class="message"></div>
+        <div class="result-display"></div>
     </div>
-    <div class="message"></div>
-    <div class="result-display"></div>
 </body>
 <script src="java.js"></script>
 </html>

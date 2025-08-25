@@ -47,6 +47,7 @@ const Game = (() => {
         gameOver = false;
         Gameboard.render();
         addEventListenerToSquares();
+        document.querySelector("#result-display").textContent = "";
     }
 
     const addEventListenerToSquares = () => {
@@ -68,12 +69,16 @@ const Game = (() => {
 
             if(checkForWin() || checkForTie()) {
                 gameOver = true;
-                alert(checkForWin() ? `${currentPlayer.name} Wins!` : "It's a tie!");
+                displayMessage(checkForWin() ? `${currentPlayer.name} Wins!` : "It's a tie!");
                 return;
             }
 
             currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0;
         }
+    }
+
+    const displayMessage = (message) => {
+        document.querySelector("#result-display").textContent = message;
     }
 
     const checkForWin = () => {

@@ -5,8 +5,7 @@ h1 {
     font-weight: 800;
 }
 
-.gamesize {
-    display: grid;
+body {
     max-height: 90vh;
 }
 
@@ -34,6 +33,13 @@ h1 {
   width: 250px;
   text-align: center;
   font-size: 80px;
+}
+
+#result-display {
+    display: flex;
+    font-size: 25px;
+    font-weight: bold;
+    justify-content: center;
 }
 
 #controls {

@@ -20,10 +20,15 @@ const Gameboard = (() => {
 
     const getGameboard = () => gameboard;
 
+    const reset = () =>  {
+        gameboard = ["", "", "", "", "", "", "", "", ""];
+    };
+
     return {
         render,
         update,
-        getGameboard
+        getGameboard,
+        reset
     }
 })();
 
@@ -101,8 +106,18 @@ const Game = (() => {
         return gameboard.every(square => square !== "");
     }
 
+    const restart = () => {
+        Gameboard.reset();
+        gameOver = false;
+        currentPlayerIndex = 0;
+        Gameboard.render();
+        addEventListenerToSquares();
+        document.querySelector("#result-display").textContent = "";
+    }
+
     return {
         start,
+        restart
     }
 })();
 
@@ -110,5 +125,10 @@ const Game = (() => {
 const startbutton = document.querySelector("#start-button");
 startbutton.addEventListener("click", () => {
     Game.start();
+})
+
+const restartbutton = document.querySelector("#restart-button"); 
+restartbutton.addEventListener("click", () => {
+    Game.restart();
 })
 

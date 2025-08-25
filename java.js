@@ -4,7 +4,8 @@ const Gameboard = (() => {
     const render = () => {
         let boardHTML = "";
         gameboard.forEach((square, index) => {
-            boardHTML += `<div class="square" id="square-${index}">${square}</div>`
+            const contentClass = square === "X" ? "x-mark" : square === "0" ? "o-mark": "";
+            boardHTML += `<div class="square ${contentClass}" id="square-${index}">${square}</div>`
         })
         document.querySelector("#gameboard").innerHTML = boardHTML;
     }
